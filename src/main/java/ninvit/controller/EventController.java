@@ -26,7 +26,7 @@ public class EventController {
     }
 
     @RequestMapping(value = "/event/{type}", method = RequestMethod.GET)
-    public ResponseEntity<Event> GetById(@PathVariable(value = "id") String type)
+    public ResponseEntity<Event> GetById(@PathVariable(value = "type") String type)
     {
         Optional<Event> event = _eventRepository.findById(type);
         if(event.isPresent())
@@ -42,7 +42,7 @@ public class EventController {
     }
 
     @RequestMapping(value = "/event/{type}", method =  RequestMethod.PUT)
-    public ResponseEntity<Event> Put(@PathVariable(value = "id") String type, @RequestBody Event newEvent)
+    public ResponseEntity<Event> Put(@PathVariable(value = "type") String type, @RequestBody Event newEvent)
     {
         Optional<Event> oldEvent = _eventRepository.findById(type);
         if(oldEvent.isPresent()){
