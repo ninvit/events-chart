@@ -2,10 +2,14 @@ package ninvit.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Id;
+
 /**
  * This is just an event stub, feel free to expand it if needed.
  */
 public class Event {
+
+    @Id
     private String type;
     private LocalDateTime timestamp;
 
