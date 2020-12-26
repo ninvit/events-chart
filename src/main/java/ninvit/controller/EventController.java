@@ -18,17 +18,17 @@ import ninvit.repository.EventRepository;
 @RestController
 public class EventController {
     @Autowired
-    private EventRepository _eventRepository;
+    private EventRepository eventRepository;
 
-    @RequestMapping(value = "/event", method = RequestMethod.GET)
+    @RequestMapping(value = "/events", method = RequestMethod.GET)
     public List<Event> Get() {
-        return _eventRepository.findAll();
+        return eventRepository.findAll();
     }
 
     @RequestMapping(value = "/event/{type}", method = RequestMethod.GET)
     public ResponseEntity<Event> GetById(@PathVariable(value = "type") String type)
     {
-        Optional<Event> event = _eventRepository.findById(type);
+        Optional<Event> event = eventRepository.findById(type);
         if(event.isPresent())
             return new ResponseEntity<Event>(event.get(), HttpStatus.OK);
         else
@@ -38,17 +38,17 @@ public class EventController {
     @RequestMapping(value = "/event", method =  RequestMethod.POST)
     public Event Post(@RequestBody Event event)
     {
-        return _eventRepository.save(event);
+        return eventRepository.save(event);
     }
 
     @RequestMapping(value = "/event/{type}", method =  RequestMethod.PUT)
     public ResponseEntity<Event> Put(@PathVariable(value = "type") String type, @RequestBody Event newEvent)
     {
-        Optional<Event> oldEvent = _eventRepository.findById(type);
+        Optional<Event> oldEvent = eventRepository.findById(type);
         if(oldEvent.isPresent()){
             Event event = oldEvent.get();
             event.setTimestamp(newEvent.getTimestamp());
-            _eventRepository.save(event);
+            eventRepository.save(event);
             return new ResponseEntity<Event>(event, HttpStatus.OK);
         }
         else
@@ -58,9 +58,9 @@ public class EventController {
     @RequestMapping(value = "/event/{type}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> Delete(@PathVariable(value = "type") String type)
     {
-        Optional<Event> event = _eventRepository.findById(type);
+        Optional<Event> event = eventRepository.findById(type);
         if(event.isPresent()){
-            _eventRepository.delete(event.get());
+            eventRepository.delete(event.get());
             return new ResponseEntity<>(HttpStatus.OK);
         }
         else
